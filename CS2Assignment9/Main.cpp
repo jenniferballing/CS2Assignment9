@@ -119,7 +119,7 @@ int main ()
             cout<< "The int: "<<input<<" is at index: "<<TStackInt.GetCount()<<"."<<endl;
             TStackInt.Push(userIn);
         }
-    }catch (TUStack<string>::Duplicates ex)
+    }catch (TUStack<int>::Duplicates ex)
 	{	
         cout<<endl;
 		cout << "_______Error Report_______" << endl ;
@@ -132,6 +132,8 @@ int main ()
     try
 	{	while (1)
 		{	
+            cin.clear();
+            cin.sync();
 			cout << "Enter a string to push to the stack: "; 
 			getline(cin, input);
 
@@ -148,13 +150,32 @@ int main ()
 		cout << "Error Message:: " << ex.message << endl<<endl ;
 	}
 
-    cout<<"Checking for illegal index: "<<endl;//CHECK FOR STRING
+     try
+	{	while (1)
+		{	
+			cout << "Enter an int to push to the stack: "; 
+			cin>>userIn;
+
+            cout << "Index is: " << TStackInt.GetCount() << " Its stored information is " << userIn <<"."<< endl << endl ;
+            TStackInt.Push(userIn);
+		}
+	}
+	catch (TUStack<int>::OutOfBounds ex)
+	{	
+        cout<<endl;
+		cout << "_______Error Report_______" << endl ;
+		cout << "Input index is: " << ex.index << endl ;
+		cout << "Stack size is: " << ex.size << endl ;
+		cout << "Error Message:: " << ex.message << endl<<endl ;
+	}
+
+    cout<<"Checking for illegal index: "<<endl;
     int userIndex;
      try
     {
         while (1)
         {
-            cout << "Choose an illegal index to print: "; 
+            cout << "Choose an illegal string index to print: "; 
             cin>>userIndex;
 
             cout<< "The item at the index: "<<userIndex<<" is: "<<TStackInt[userIndex]<<"."<<endl;
@@ -167,13 +188,30 @@ int main ()
 		cout << "Stack size is: " << ex.size << endl ;
 		cout << "Error Message:: " << ex.message << endl<<endl ;
 	}
+    cout<<"Checking for illegal index: "<<endl;
+     try
+    {
+        while (1)
+        {
+            cout << "Choose an illegal int index to print: "; 
+            cin>>userIndex;
 
+            cout<< "The item at the index: "<<userIndex<<" is: "<<TStackString[userIndex]<<"."<<endl;
+        }
+    }catch (TUStack<string>::OutOfBounds ex)
+	{	
+        cout<<endl;
+		cout << "_______Error Report_______" << endl ;
+		cout << "Input index is: " << ex.index << endl ;
+		cout << "Stack size is: " << ex.size << endl ;
+		cout << "Error Message:: " << ex.message << endl<<endl ;
+	}
     // ILLEGAL POP CHECKING
     cout<<"Create an empty stack for illegal pop checking: (TUStack<int>intCheckStack)"<<endl;
     TUStack<int> intCheckStack(10);
-    //cout<<"Create an empty stack for illegal pop checking: (TUStack<string>intCheckStack)"<<endl;
+    
     TUStack<string> stringCheckStack(10);
-     try//STRING ERRORS
+     try
     {
         while (1)
         {
@@ -188,7 +226,22 @@ int main ()
 		cout << "Stack size is: " << ex.size << endl ;
 		cout << "Error Message:: " << ex.message << endl <<endl;
 	}
-
+    cout<<"Create an empty stack for illegal pop checking: (TUStack<string>intCheckStack)"<<endl;
+     try
+    {
+        while (1)
+        {
+            cout << "Popping the item top item off the empty string stack: "<<endl;
+            stringCheckStack.Pop();
+        }
+    }catch (TUStack<string>::EmptyPop ex)
+	{	
+        cout<<endl<<endl<<endl;
+		cout << "_______Error Report_______" << endl ;
+		cout << "Input index is: " << ex.index << endl ;
+		cout << "Stack size is: " << ex.size << endl ;
+		cout << "Error Message:: " << ex.message << endl <<endl<<endl;
+	}
     return 0;
 }
 
